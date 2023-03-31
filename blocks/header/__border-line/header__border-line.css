@@ -1,0 +1,18 @@
+.header__border-line {
+  padding: 28px 0 0 0;
+  max-width: 880px;
+  min-width: 320px;
+  border-bottom: 1px solid rgba(84, 84, 84, 1);
+}
+
+@media (min-width: 425px) {
+  .header__border-line {
+    padding: 45px 0 0 0;
+  }
+}
+
+@media (min-width: 768px) {
+  .header__border-line {
+    margin: 0 auto;
+  }
+}
