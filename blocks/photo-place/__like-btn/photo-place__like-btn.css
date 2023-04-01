@@ -1,0 +1,8 @@
+.photo-place__like-btn {
+  all: unset;
+  width: 22px;
+  height: 19px;
+  background-image: url(../../../images/icons/like-btn.svg);
+  background-size: contain;
+  background-repeat: no-repeat;
+}

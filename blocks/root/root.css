@@ -1,26 +1,22 @@
 .root {
-  max-width: 425px;
+  max-width: 581px;
+  min-width: 320px;
   margin: 0 auto;
   background-color: #000000;
   font-family: 'Inter', 'Arial', sans-serif;
+  line-height: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
 }
 
-@media (min-width: 425px) {
+@media (min-width: 581px) {
   .root {
-    max-width: 768px;
+    max-width: 880px;
   }
 }
 
-@media (min-width: 768px) {
-  .root {
-    max-width: 1024px;
-  }
-}
-
-@media (min-width: 1024px) {
+@media (min-width: 880px) {
   .root {
     max-width: 1280px;
   }

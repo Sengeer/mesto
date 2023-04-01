@@ -1,0 +1,20 @@
+.profile__add-btn {
+  all: unset;
+  width: 282px;
+  height: 50px;
+  background-image: url(../../../images/icons/add-btn.svg);
+  background-size: 16px 16px;
+  background-repeat: no-repeat;
+  background-position: center center;
+  border: 2px solid white;
+  border-radius: 2px;
+  box-sizing: border-box;
+}
+
+@media (min-width: 880px) {
+  .profile__add-btn {
+    width: 150px;
+    background-size: 22px 22px;
+    align-self: center;
+  }
+}

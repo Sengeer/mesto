@@ -5,16 +5,11 @@
   height: 24.4px;
 }
 
-@media (min-width: 425px) {
-  .header__logo {
-    padding: 0 0 41px 0;
-    width: 142px;
-    height: 33px;
-  }
-}
-
 @media (min-width: 880px) {
   .header__logo {
     margin: 0;
+    padding: 0 0 41px 0;
+    width: 142px;
+    height: 33px;
   }
 }
