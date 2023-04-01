@@ -7,7 +7,7 @@
   color: #FFFFFF;
   grid-area: profile__description;
 }
-@media (min-width: 880px) {
+@media (min-width: 899px) {
   .profile__description {
     max-width: 294px;
     font-size: 18px;

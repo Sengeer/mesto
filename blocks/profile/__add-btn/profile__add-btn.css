@@ -11,7 +11,7 @@
   box-sizing: border-box;
 }
 
-@media (min-width: 880px) {
+@media (min-width: 899px) {
   .profile__add-btn {
     width: 150px;
     background-size: 22px 22px;

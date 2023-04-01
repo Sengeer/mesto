@@ -5,7 +5,7 @@
   max-width: 880px;
 }
 
-@media (min-width: 880px) {
+@media (min-width: 899px) {
   .photo-place {
     padding: 50px 0 0 0;
   }

@@ -8,14 +8,14 @@
   row-gap: 20px;
 }
 
-@media (min-width: 581px) {
+@media (min-width: 600px) {
   .photo-place__elements {
     grid-template-columns: repeat(2, 1fr);
     max-width: 581px;
   }
 }
 
-@media (min-width: 880px) {
+@media (min-width: 899px) {
   .photo-place__elements {
     grid-template-columns: repeat(3, 1fr);
     max-width: 880px;

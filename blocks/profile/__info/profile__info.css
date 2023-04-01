@@ -9,7 +9,7 @@
     'profile__description profile__description';
 }
 
-@media (min-width: 880px) {
+@media (min-width: 899px) {
   .profile__info {
     padding: 0;
     grid-template-columns: repeat(3, max-content);

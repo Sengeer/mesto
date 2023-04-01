@@ -10,13 +10,13 @@
   text-rendering: optimizeLegibility;
 }
 
-@media (min-width: 581px) {
+@media (min-width: 600px) {
   .root {
     max-width: 880px;
   }
 }
 
-@media (min-width: 880px) {
+@media (min-width: 899px) {
   .root {
     max-width: 1280px;
   }
