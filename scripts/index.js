@@ -1,12 +1,12 @@
 let openPopupBtn = document.querySelector('.profile__edit-btn');
 let popup = document.querySelector('.pop-up');
-let popupCloseBtn = document.querySelector('.pop-up__close-btn');
-let pupupSubmitBtn = document.querySelector('.pop-up__submit-btn');
+let popupCloseBtn = popup.querySelector('.pop-up__close-btn');
+let pupupSubmitBtn = popup.querySelector('.pop-up__submit-btn');
 
 let profileName = document.querySelector('.profile__name');
 let profileDescription = document.querySelector('.profile__description');
 
-let formElement = document.querySelector('.pop-up__form');
+let formElement = popup.querySelector('.pop-up__form');
 let nameInput = formElement.querySelector('.pop-up__edit-name');
 let descriptionInput = formElement.querySelector('.pop-up__edit-description');
 
