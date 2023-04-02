@@ -10,6 +10,12 @@
   right: 37px;
   align-self: center;
   grid-area: profile__edit-btn;
+  cursor: pointer;
+  transition: opacity ease-in-out 0.2s;
+}
+
+.profile__edit-btn:hover {
+  opacity: 0.6;
 }
 
 @media (min-width: 899px) {

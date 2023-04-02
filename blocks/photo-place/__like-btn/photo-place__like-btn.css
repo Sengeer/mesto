@@ -5,4 +5,14 @@
   background-image: url(../../../images/icons/like-btn.svg);
   background-size: contain;
   background-repeat: no-repeat;
+  cursor: pointer;
+  transition: opacity ease-in-out 0.2s;
+}
+
+.photo-place__like-btn:hover {
+  opacity: 0.5;
+}
+
+.photo-place__like-btn:checked {
+  background-image: url(../../../images/icons/like-btn-active.svg);
 }

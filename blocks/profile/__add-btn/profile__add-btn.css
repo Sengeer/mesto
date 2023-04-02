@@ -9,6 +9,12 @@
   border: 2px solid white;
   border-radius: 2px;
   box-sizing: border-box;
+  cursor: pointer;
+  transition: opacity ease-in-out 0.2s;
+}
+
+.profile__add-btn:hover {
+  opacity: 0.6;
 }
 
 @media (min-width: 899px) {
