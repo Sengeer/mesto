@@ -1,13 +1,16 @@
 .profile__name {
   padding: 26px 0 7px 0;
   margin: 0 auto;
-  max-width: 189px;
-  width: 100%;
+  min-width: 189px;
+  max-width: 210px;
   font-weight: 500;
   font-size: 27px;
   line-height: 33px;
   text-align: center;
   color: #FFFFFF;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
   grid-area: profile__name;
 }
 
@@ -15,8 +18,10 @@
   .profile__name {
     padding: 22px 0 0 0;
     margin: 0;
-    max-width: 294px;
+    min-width: 294px;
+    max-width: 525px;
     font-size: 42px;
     line-height: 48px;
+    text-align: left;
   }
 }

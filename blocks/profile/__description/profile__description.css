@@ -5,11 +5,17 @@
   line-height: 17px;
   text-align: center;
   color: #FFFFFF;
+  word-break: break-word;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
   grid-area: profile__description;
 }
+
 @media (min-width: 899px) {
   .profile__description {
-    max-width: 294px;
+    max-width: 525px;
     font-size: 18px;
     line-height: 22px;
     text-align: left;
