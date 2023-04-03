@@ -8,20 +8,18 @@
 </head>
 <body class="root">
   <header class="header">
-    <div class="header__border-line">
-      <img src="./images/header-logo.svg" alt="Лого" class="header__logo">
-    </div>
+    <img src="./images/header-logo.svg" alt="Лого" class="header__logo">
   </header>
   <main class="content">
     <section class="profile">
       <div class="profile__info">
         <img src="./images/profile-avatar.jpg" alt="Жак-Ив Кусто" class="profile__avatar">
         <h1 class="profile__name">Жак-Ив Кусто</h1>
-        <button class="profile__edit-btn">
+        <button class="profile__edit-btn" type="submit">
         </button>
         <p class="profile__description">Исследователь океана</p>
       </div>
-      <button class="profile__add-btn">
+      <button class="profile__add-btn" type="submit">
       </button>
     </section>
     <section class="photo-place">
@@ -32,7 +30,8 @@
             <h2 class="photo-place__title">
               Рускеала
             </h2>
-            <input type="checkbox" class="photo-place__like-btn">
+            <button class="photo-place__like-btn" type="submit">
+            </button>
           </div>
         </li>
         <li class="photo-place__element">
@@ -41,7 +40,8 @@
             <h2 class="photo-place__title">
               Гора Большой Бермамыт
             </h2>
-            <input type="checkbox" class="photo-place__like-btn">
+            <button class="photo-place__like-btn" type="submit">
+            </button>
           </div>
         </li>
         <li class="photo-place__element">
@@ -50,7 +50,8 @@
             <h2 class="photo-place__title">
               Гора Эльбрус
             </h2>
-            <input type="checkbox" class="photo-place__like-btn">
+            <button class="photo-place__like-btn" type="submit">
+            </button>
           </div>
         </li>
         <li class="photo-place__element">
@@ -59,7 +60,8 @@
             <h2 class="photo-place__title">
               Чусовая
             </h2>
-            <input type="checkbox" class="photo-place__like-btn">
+            <button class="photo-place__like-btn" type="submit">
+            </button>
           </div>
         </li>
         <li class="photo-place__element">
@@ -68,7 +70,8 @@
             <h2 class="photo-place__title">
               Сулакский каньон
             </h2>
-            <input type="checkbox" class="photo-place__like-btn">
+            <button class="photo-place__like-btn" type="submit">
+            </button>
           </div>
         </li>
         <li class="photo-place__element">
@@ -77,7 +80,8 @@
             <h2 class="photo-place__title">
               Архыз
             </h2>
-            <input type="checkbox" class="photo-place__like-btn">
+            <button class="photo-place__like-btn" type="submit">
+            </button>
           </div>
         </li>
       </ul>
@@ -89,19 +93,18 @@
     </p>
   </footer>
   <div class="pop-up">
-    <div class="pop-up__overlay"></div>
-    <div class="pop-up__content">
+    <div class="pop-up__container">
       <h2 class="pop-up__title">
         Редактировать профиль
       </h2>
       <form class="pop-up__form" action="./" method="post">
-        <input type="text" class="pop-up__edit-name">
-        <input type="text" class="pop-up__edit-description">
+        <input type="text" class="pop-up__input pop-up__input_type_name" name="userName" placeholder="Введите имя">
+        <input type="text" class="pop-up__input pop-up__input_type_description" name="userDescription" placeholder="Введите описание">
         <button class="pop-up__submit-btn" type="submit">
           Сохранить
         </button>
       </form>
-      <button class="pop-up__close-btn">
+      <button class="pop-up__close-btn" type="submit">
       </button>
     </div>
   </div>

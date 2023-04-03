@@ -8,14 +8,14 @@
   line-height: 17px;
   border-radius: 2px;
   padding-bottom: 5px;
-  background-color: #000000;
-  color: white;
+  background-color: rgba(0, 0, 0, 1);
+  color: #fff;
   cursor: pointer;
-  transition: opacity ease-in-out 0.2s;
+  transition: background-color ease-in-out 0.2s;
 }
 
 .pop-up__submit-btn:hover {
-  opacity: 0.8;
+  background-color: rgba(0, 0, 0, .8);
 }
 
 @media (min-width: 600px) {
