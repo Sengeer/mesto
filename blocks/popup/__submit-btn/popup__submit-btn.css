@@ -1,4 +1,4 @@
-.pop-up__submit-btn {
+.popup__submit-btn {
   margin: 0;
   border: 0;
   width: 100%;
@@ -14,12 +14,12 @@
   transition: background-color ease-in-out 0.2s;
 }
 
-.pop-up__submit-btn:hover {
+.popup__submit-btn:hover {
   background-color: rgba(0, 0, 0, .8);
 }
 
 @media (min-width: 600px) {
-  .pop-up__submit-btn {
+  .popup__submit-btn {
     height: 50px;
     font-size: 18px;
     line-height: 22px;
