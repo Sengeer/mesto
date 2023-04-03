@@ -13,12 +13,12 @@
   background-color: transparent;
 }
 
-.pop-up__input:nth-last-child(2) {
+.pop-up__input:last-of-type {
   margin: 0 0 45px 0;
 }
 
 @media (min-width: 600px) {
-  .pop-up__input:nth-last-child(2) {
+  .pop-up__input:last-of-type {
     margin: 0 0 48px 0;
   }
 }
