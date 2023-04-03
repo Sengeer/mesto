@@ -1,4 +1,4 @@
-.pop-up__content {
+.pop-up__container {
   padding: 25px 22px;
   margin: auto auto;
   width: calc(282px - 2*22px);
@@ -10,7 +10,7 @@
 }
 
 @media (min-width: 600px) {
-  .pop-up__content {
+  .pop-up__container {
     padding: 34px 36px 37px;
     width: calc(430px - 2*36px);
     height: calc(330px - (34px + 37px));
