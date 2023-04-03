@@ -16,6 +16,7 @@
 @import url(../blocks/photo-place/__info/photo-place__info.css);
 @import url(../blocks/photo-place/__title/photo-place__title.css);
 @import url(../blocks/photo-place/__like-btn/photo-place__like-btn.css);
+@import url(../blocks/photo-place/__like-btn/_active/photo-place__like-btn_active.css);
 @import url(../blocks/footer/footer.css);
 @import url(../blocks/footer/__copyright/footer__copyright.css);
 @import url(../blocks/pop-up/pop-up.css);
