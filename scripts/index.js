@@ -39,8 +39,8 @@ const descriptionInput = formElement.querySelector('.popup__input_modal-type_des
 function openPopup() {
   popup.classList.add('popup_opened');
 
-  const textName = profileName.textContent;
-  const textDescription = profileDescription.textContent;
+  let textName = profileName.textContent;
+  let textDescription = profileDescription.textContent;
 
   nameInput.value = textName;
   descriptionInput.value = textDescription;
@@ -56,8 +56,8 @@ popupCloseBtn.addEventListener('click', closePopup);
 function handleFormSubmit (evt) {
   evt.preventDefault();
 
-  const nameText = nameInput.value;
-  const descriptionText = descriptionInput.value;
+  let nameText = nameInput.value;
+  let descriptionText = descriptionInput.value;
 
   profileName.textContent = nameText;
   profileDescription.textContent = descriptionText;
@@ -97,6 +97,40 @@ const addImageElement = function (imageData) {
 
 initialCards.forEach((image) => {
   const element = addImageElement(image);
-  imageContainer.prepend(element);
+  imageContainer.appendChild(element);
 });
 
+const openPopupAddBtn = document.querySelector('.profile__add-btn');
+const popupAdd = document.querySelector('.popup_modal-type_add');
+const closePopupAddBtn = popupAdd.querySelector('.popup__close-btn_modal-type_add');
+
+const formElementPopupAdd = popupAdd.querySelector('.popup__form_modal-type_add');
+const nameImageInput = formElementPopupAdd.querySelector('.popup__input_modal-type_name-image');
+const linkInput = formElementPopupAdd.querySelector('.popup__input_modal-type_link');
+
+function openPopupAdd() {
+  popupAdd.classList.add('popup_opened');
+}
+
+function closePopupAdd() {
+  popupAdd.classList.remove('popup_opened');
+}
+
+openPopupAddBtn.addEventListener('click', openPopupAdd);
+closePopupAddBtn.addEventListener('click', closePopupAdd);
+
+function handleFormSubmitPopupAdd (evt) {
+  evt.preventDefault();
+
+  let nameImageText = nameImageInput.value;
+  let nameLinkText = linkInput.value;
+
+  let newElement = { name: `${nameImageText}`, link: `${nameLinkText}` };
+
+  const element = addImageElement(newElement);
+  imageContainer.prepend(element);
+
+  closePopupAdd();
+}
+
+formElementPopupAdd.addEventListener('submit', handleFormSubmitPopupAdd);
