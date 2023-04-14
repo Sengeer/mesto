@@ -6,8 +6,8 @@ let profileName = document.querySelector('.profile__name');
 let profileDescription = document.querySelector('.profile__description');
 
 let formElement = popup.querySelector('.popup__form');
-let nameInput = formElement.querySelector('.popup__input_type_name');
-let descriptionInput = formElement.querySelector('.popup__input_type_description');
+let nameInput = formElement.querySelector('.popup__input_modal-type_name');
+let descriptionInput = formElement.querySelector('.popup__input_modal-type_description');
 
 function openPopup() {
   popup.classList.add('popup_opened');
