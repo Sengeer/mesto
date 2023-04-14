@@ -39,16 +39,16 @@ const descriptionInput = formElement.querySelector('.popup__input_modal-type_des
 function openPopup() {
   popup.classList.add('popup_opened');
 
-  let textName = profileName.textContent;
-  let textDescription = profileDescription.textContent;
+  const textName = profileName.textContent;
+  const textDescription = profileDescription.textContent;
 
   nameInput.value = textName;
   descriptionInput.value = textDescription;
-}
+};
 
 function closePopup() {
     popup.classList.remove('popup_opened');
-}
+};
 
 openPopupBtn.addEventListener('click', openPopup);
 popupCloseBtn.addEventListener('click', closePopup);
@@ -56,13 +56,13 @@ popupCloseBtn.addEventListener('click', closePopup);
 function handleFormSubmit (evt) {
   evt.preventDefault();
 
-  let nameText = nameInput.value;
-  let descriptionText = descriptionInput.value;
+  const nameText = nameInput.value;
+  const descriptionText = descriptionInput.value;
 
   profileName.textContent = nameText;
   profileDescription.textContent = descriptionText;
   closePopup();
-}
+};
 
 formElement.addEventListener('submit', handleFormSubmit);
 
@@ -110,11 +110,11 @@ const linkInput = formElementPopupAdd.querySelector('.popup__input_modal-type_li
 
 function openPopupAdd() {
   popupAdd.classList.add('popup_opened');
-}
+};
 
 function closePopupAdd() {
   popupAdd.classList.remove('popup_opened');
-}
+};
 
 openPopupAddBtn.addEventListener('click', openPopupAdd);
 closePopupAddBtn.addEventListener('click', closePopupAdd);
@@ -122,15 +122,15 @@ closePopupAddBtn.addEventListener('click', closePopupAdd);
 function handleFormSubmitPopupAdd (evt) {
   evt.preventDefault();
 
-  let nameImageText = nameImageInput.value;
-  let nameLinkText = linkInput.value;
+  const nameImageText = nameImageInput.value;
+  const nameLinkText = linkInput.value;
 
-  let newElement = { name: `${nameImageText}`, link: `${nameLinkText}` };
+  const newElement = { name: `${nameImageText}`, link: `${nameLinkText}` };
 
   const element = addImageElement(newElement);
   imageContainer.prepend(element);
 
   closePopupAdd();
-}
+};
 
 formElementPopupAdd.addEventListener('submit', handleFormSubmitPopupAdd);
