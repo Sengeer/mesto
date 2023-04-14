@@ -1,27 +1,27 @@
 const initialCards = [
   {
+    name: 'Рускеала',
+    link: './images/photo-place-ruskeala.jpg'
+  },
+  {
+    name: 'Гора Большой Бермамыт',
+    link: './images/photo-place-bolshoi-bermamyt.jpg'
+  },
+  {
+    name: 'Гора Эльбрус',
+    link: './images/photo-place-elbrus.jpg'
+  },
+  {
+    name: 'Чусовая',
+    link: './images/photo-place-chusovaya.jpg'
+  },
+  {
+    name: 'Сулакский каньон',
+    link: './images/photo-place-sulakskii-kanyon.jpg'
+  },
+  {
     name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+    link: './images/photo-place-arhyz.jpg'
   }
 ];
 
@@ -74,8 +74,29 @@ const addImageElement = function (imageData) {
 
   const elementImage = imageElement.querySelector('.photo-place__image');
   const elementTitle = imageElement.querySelector('.photo-place__title');
+  const elementLikeButton = imageElement.querySelector('.photo-place__like-btn');
+  const elementDeleteButton = imageElement.querySelector('.photo-place__delete-btn');
 
   elementImage.src = imageData.link;
   elementImage.alt = imageData.name;
   elementTitle.textContent = imageData.name;
+
+  const handleDelete = function () {
+    imageElement.remove();
+  };
+
+  const handleLike = function () {
+    elementLikeButton.classList.toggle('photo-place__like-btn_active');
+  };
+
+  elementDeleteButton.addEventListener('click', handleDelete);
+  elementLikeButton.addEventListener('click', handleLike);
+
+  return imageElement;
 };
+
+initialCards.forEach((image) => {
+  const element = addImageElement(image);
+  imageContainer.prepend(element);
+});
+
