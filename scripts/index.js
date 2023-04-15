@@ -66,7 +66,7 @@ function handleFormSubmit (evt) {
 
 formElement.addEventListener('submit', handleFormSubmit);
 
-const imageTemplate = document.getElementById('image-template');
+const imageTemplate = document.getElementById('card-template');
 const imageContainer = document.querySelector('.photo-place__elements');
 
 const addImageElement = function (imageData) {
@@ -76,6 +76,10 @@ const addImageElement = function (imageData) {
   const elementTitle = imageElement.querySelector('.photo-place__title');
   const elementLikeButton = imageElement.querySelector('.photo-place__like-btn');
   const elementDeleteButton = imageElement.querySelector('.photo-place__delete-btn');
+
+  const popupImage = document.querySelector('.popup_modal-type_image');
+  const popupImageElement = popupImage.querySelector('.popup__image');
+  const popupCaptionElement = popupImage.querySelector('.popup__caption');
 
   elementImage.src = imageData.link;
   elementImage.alt = imageData.name;
@@ -89,8 +93,20 @@ const addImageElement = function (imageData) {
     elementLikeButton.classList.toggle('photo-place__like-btn_active');
   };
 
+  const handleOpenImage = function () {
+    popupImage.classList.toggle('popup_opened');
+
+    const imageElementSrc = elementImage.src;
+    const imageElementAlt = elementImage.alt;
+
+    popupImageElement.src = imageElementSrc;
+    popupImageElement.alt = imageElementAlt;
+    popupCaptionElement.textContent = imageElementAlt;
+  };
+
   elementDeleteButton.addEventListener('click', handleDelete);
   elementLikeButton.addEventListener('click', handleLike);
+  elementImage.addEventListener('click', handleOpenImage);
 
   return imageElement;
 };
@@ -134,3 +150,12 @@ function handleFormSubmitPopupAdd (evt) {
 };
 
 formElementPopupAdd.addEventListener('submit', handleFormSubmitPopupAdd);
+
+const popupImage = document.querySelector('.popup_modal-type_image');
+const popupImageCloseBtn = document.querySelector('.popup__close-btn_modal-type_image');
+
+function closePopupImage() {
+  popupImage.classList.remove('popup_opened');
+};
+
+popupImageCloseBtn.addEventListener('click', closePopupImage);
