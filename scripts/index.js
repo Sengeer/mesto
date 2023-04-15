@@ -94,14 +94,14 @@ const addImageElement = function (imageData) {
   };
 
   const handleOpenImage = function () {
-    popupImage.classList.toggle('popup_opened');
-
     const imageElementSrc = elementImage.src;
     const imageElementAlt = elementImage.alt;
 
     popupImageElement.src = imageElementSrc;
     popupImageElement.alt = imageElementAlt;
     popupCaptionElement.textContent = imageElementAlt;
+
+    popupImage.classList.toggle('popup_opened');
   };
 
   elementDeleteButton.addEventListener('click', handleDelete);
