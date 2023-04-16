@@ -1,11 +1,11 @@
 import { initialCards } from "./constants.js";
 
-function openPopup(popupModalType) {
-  popupModalType.classList.add('popup_opened');
+function openPopup(popupModal) {
+  popupModal.classList.add('popup_opened');
 };
 
-function closePopup(popupModalType) {
-  popupModalType.classList.remove('popup_opened');
+function closePopup(popupModal) {
+  popupModal.classList.remove('popup_opened');
 };
 
 const openPopupEditBtn = document.querySelector('.profile__edit-btn');
