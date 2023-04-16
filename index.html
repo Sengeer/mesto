@@ -37,13 +37,13 @@
       &copy; 2023 Mesto Russia
     </p>
   </footer>
-  <div class="popup">
-    <div class="popup__container">
-      <h2 class="popup__title">
+  <div class="popup popup_modal-type_edit">
+    <div class="popup__container popup__container_modal-type_edit">
+      <h2 class="popup__title popup__title_modal-type_edit">
         Редактировать профиль
       </h2>
       <form
-        class="popup__form"
+        class="popup__form popup__form_modal-type_edit"
         name="userForm">
         <input
           type="text"
@@ -57,11 +57,11 @@
           name="userDescription"
           placeholder="Введите описание"
           required>
-        <button class="popup__submit-btn" type="submit">
+        <button class="popup__submit-btn popup__submit-btn_modal-type_edit" type="submit">
           Сохранить
         </button>
       </form>
-      <button class="popup__close-btn" type="button" aria-label="Закрыть окно">
+      <button class="popup__close-btn popup__close-btn_modal-type_edit" type="button" aria-label="Закрыть окно">
       </button>
     </div>
   </div>
@@ -105,7 +105,7 @@
       </button>
     </div>
   </div>
-  <template id="card-template">
+  <template class="card-template">
     <li class="photo-place__element">
       <img class="photo-place__image">
       <div class="photo-place__info">
