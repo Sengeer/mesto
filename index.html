@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="./pages/index.css">
   <script src="./scripts/index.js" type="module"></script>
+  <script src="./scripts/validate.js" type="module"></script>
   <title>Место</title>
 </head>
 <body class="root">
@@ -52,12 +53,15 @@
       </h2>
       <form
         class="popup__form popup__form_modal-type_edit"
-        name="userForm">
+        name="userForm"
+        novalidate>
         <input
           type="text"
           class="popup__input popup__input_modal-type_name"
           name="name-input"
           placeholder="Введите имя"
+          minlength="2"
+          maxlength="40"
           required>
         <p class="popup__input-error name-input-error"></p>
         <input
@@ -65,6 +69,8 @@
           class="popup__input popup__input_modal-type_description"
           name="description-input"
           placeholder="Введите описание"
+          minlength="2"
+          maxlength="200"
           required>
         <p class="popup__input-error description-input-error"></p>
         <button
@@ -87,12 +93,15 @@
       </h2>
       <form
         class="popup__form popup__form_modal-type_add"
-        name="userForm">
+        name="userForm"
+        novalidate>
         <input
           type="text"
           class="popup__input popup__input_modal-type_name-image"
           name="name-image-input"
           placeholder="Название"
+          minlength="2"
+          maxlength="30"
           required>
         <p class="popup__input-error name-image-input-error"></p>
         <input
