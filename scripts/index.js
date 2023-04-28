@@ -110,7 +110,7 @@ function closePopupAdd() {
 openBtnPopupAdd.addEventListener('click', openPopupAdd);
 closeBtnPopupAdd.addEventListener('click', closePopupAdd);
 
-function handlePopupAddFormSubmit (evt) {
+function handleFormSubmitPopupAdd (evt) {
   evt.preventDefault();
 
   const newObject = { name: nameImageInput.value, link: linkInput.value};
@@ -123,7 +123,7 @@ function handlePopupAddFormSubmit (evt) {
   formElementPopupAdd.reset();
 };
 
-formElementPopupAdd.addEventListener('submit', handlePopupAddFormSubmit);
+formElementPopupAdd.addEventListener('submit', handleFormSubmitPopupAdd);
 
 const closeBtnPopupImage = document.querySelector('.popup__close-btn_modal-type_image');
 
