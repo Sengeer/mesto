@@ -156,8 +156,8 @@ const enablePopupListeners = (enableConfig) => {
     popupElement.addEventListener('click', function (evt) {
       handleClosePopupClick(popupElement, evt, enableConfig);
     });
-
   });
+  
 };
 
 enablePopupListeners({
