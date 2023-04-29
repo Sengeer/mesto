@@ -1,19 +1,9 @@
 import { initialCards } from "./constants.js";
 
-function openPopup(popupModal) {
-  popupModal.classList.add('popup_opened');
-  document.addEventListener('keydown', handleClosePopupEsc);
-};
-
-function closePopup(popupModal) {
-  popupModal.classList.remove('popup_opened');
-  document.removeEventListener('keydown', handleClosePopupEsc);
-};
+// Обработка редактирования профиля
+const popupEdit = document.querySelector('.popup_modal-type_edit');
 
 const openBtnPopupEdit = document.querySelector('.profile__edit-btn');
-const popupEdit = document.querySelector('.popup_modal-type_edit');
-// const closeBtnPopupEdit = popupEdit.querySelector('.popup__close-btn_modal-type_edit');
-
 const profileName = document.querySelector('.profile__name');
 const profileDescription = document.querySelector('.profile__description');
 
@@ -21,34 +11,25 @@ const formElementPopupEdit = popupEdit.querySelector('.popup__form_modal-type_ed
 const nameInput = formElementPopupEdit.querySelector('.popup__input_modal-type_name');
 const descriptionInput = formElementPopupEdit.querySelector('.popup__input_modal-type_description');
 
-function openPopupEdit() {
-  openPopup(popupEdit);
-
+const handleOpenPopupEdit = () => {
   nameInput.value = profileName.textContent;
   descriptionInput.value = profileDescription.textContent;
+
+  openPopup(popupEdit);
 };
-
-// function closePopupEdit() {
-//   closePopup(popupEdit);
-// };
-
-openBtnPopupEdit.addEventListener('click', openPopupEdit);
-// closeBtnPopupEdit.addEventListener('click', closePopupEdit);
 
 function handleFormSubmitPopupEdit (evt) {
   evt.preventDefault();
 
   profileName.textContent = nameInput.value;
   profileDescription.textContent = descriptionInput.value;
-  closePopupEdit();
+
+  closePopup(popupEdit);
 };
 
-formElementPopupEdit.addEventListener('submit', handleFormSubmitPopupEdit);
-
+// Создание карточки / функционал карточки
 const imageTemplate = document.querySelector('.card-template');
 const imageContainer = document.querySelector('.photo-place__elements');
-
-const popupImage = document.querySelector('.popup_modal-type_image');
 
 const createImageElement = function (imageData) {
   const cardElement = imageTemplate.content.querySelector('.photo-place__element').cloneNode(true);
@@ -58,6 +39,7 @@ const createImageElement = function (imageData) {
   const likeBtnElement = cardElement.querySelector('.photo-place__like-btn');
   const deleteBtnElement = cardElement.querySelector('.photo-place__delete-btn');
 
+  const popupImage = document.querySelector('.popup_modal-type_image');
   const popupImageElement = popupImage.querySelector('.popup__image');
   const popupCaptionElement = popupImage.querySelector('.popup__caption');
 
@@ -93,24 +75,13 @@ initialCards.forEach((image) => {
   imageContainer.appendChild(element);
 });
 
+// Обработка добавления новой карточки
 const openBtnPopupAdd = document.querySelector('.profile__add-btn');
 const popupAdd = document.querySelector('.popup_modal-type_add');
-// const closeBtnPopupAdd = popupAdd.querySelector('.popup__close-btn_modal-type_add');
 
 const formElementPopupAdd = popupAdd.querySelector('.popup__form_modal-type_add');
 const nameImageInput = formElementPopupAdd.querySelector('.popup__input_modal-type_name-image');
 const linkInput = formElementPopupAdd.querySelector('.popup__input_modal-type_link');
-
-function openPopupAdd() {
-  openPopup(popupAdd);
-};
-
-// function closePopupAdd() {
-//   closePopup(popupAdd);
-// };
-
-openBtnPopupAdd.addEventListener('click', openPopupAdd);
-// closeBtnPopupAdd.addEventListener('click', closePopupAdd);
 
 function handleFormSubmitPopupAdd (evt) {
   evt.preventDefault();
@@ -120,48 +91,51 @@ function handleFormSubmitPopupAdd (evt) {
   const element = createImageElement(newObject);
   imageContainer.prepend(element);
 
-  closePopupAdd();
+  closePopup(popupAdd);
 
   formElementPopupAdd.reset();
 };
 
-formElementPopupAdd.addEventListener('submit', handleFormSubmitPopupAdd);
+// Функции открытия и закрытия окон / добавления слушателей
+function openPopup(popupModal) {
+  popupModal.classList.add('popup_opened');
+  document.addEventListener('keydown', handleClosePopupEsc);
+};
 
-// const closeBtnPopupImage = document.querySelector('.popup__close-btn_modal-type_image');
+function closePopup(popupModal) {
+  popupModal.classList.remove('popup_opened');
+  document.removeEventListener('keydown', handleClosePopupEsc);
+};
 
-// function closePopupImage() {
-//   closePopup(popupImage);
-// };
-
-// closeBtnPopupImage.addEventListener('click', closePopupImage);
-
-// Функция новой фичи handlePopupListeners
 const handleClosePopupEsc = (evt) => {
   if (evt.key === 'Escape') {
-    closePopup(document.querySelector(".popup_opened"));
+    closePopup(document.querySelector('.popup_opened'));
   }
 };
 
-const handleClosePopupClick = (popupElement, evt, enableConfig) => {
-  const isOverlay = evt.target.classList.contains(enableConfig.popupSelector);
-  const isCloseBtn = evt.target.classList.contains(enableConfig.closeBtnSelector);
+const handleClosePopupClick = (popupElement, evt) => {
+  const isOverlay = evt.target.classList.contains('popup');
+  const isCloseBtn = evt.target.classList.contains('popup__close-btn');
   if (isOverlay || isCloseBtn) {
     closePopup(popupElement);
   }
 };
 
-const enablePopupListeners = (enableConfig) => {
-  const popupList = Array.from(document.querySelectorAll(`.${enableConfig.popupSelector}`));
+const enablePopupListeners = () => {
+  const popupList = Array.from(document.querySelectorAll('.popup'));
   popupList .forEach((popupElement) => {
     popupElement.addEventListener('click', function (evt) {
-      handleClosePopupClick(popupElement, evt, enableConfig);
+      handleClosePopupClick(popupElement, evt);
     });
   });
-  
+
+  openBtnPopupEdit.addEventListener('click', handleOpenPopupEdit);
+  formElementPopupEdit.addEventListener('submit', handleFormSubmitPopupEdit);
+
+  openBtnPopupAdd.addEventListener('click', function () {
+    openPopup(popupAdd)
+  });
+  formElementPopupAdd.addEventListener('submit', handleFormSubmitPopupAdd);
 };
 
-enablePopupListeners({
-  popupSelector: 'popup',
-  closeBtnSelector: 'popup__close-btn',
-  openBtnPopupEdit: 'profile__edit-btn'
-});
+enablePopupListeners();
