@@ -2,15 +2,17 @@ import { initialCards } from "./constants.js";
 
 function openPopup(popupModal) {
   popupModal.classList.add('popup_opened');
+  document.addEventListener('keydown', handleClosePopupEsc);
 };
 
 function closePopup(popupModal) {
   popupModal.classList.remove('popup_opened');
+  document.removeEventListener('keydown', handleClosePopupEsc);
 };
 
 const openBtnPopupEdit = document.querySelector('.profile__edit-btn');
 const popupEdit = document.querySelector('.popup_modal-type_edit');
-const closeBtnPopupEdit = popupEdit.querySelector('.popup__close-btn_modal-type_edit');
+// const closeBtnPopupEdit = popupEdit.querySelector('.popup__close-btn_modal-type_edit');
 
 const profileName = document.querySelector('.profile__name');
 const profileDescription = document.querySelector('.profile__description');
@@ -26,12 +28,12 @@ function openPopupEdit() {
   descriptionInput.value = profileDescription.textContent;
 };
 
-function closePopupEdit() {
-  closePopup(popupEdit);
-};
+// function closePopupEdit() {
+//   closePopup(popupEdit);
+// };
 
 openBtnPopupEdit.addEventListener('click', openPopupEdit);
-closeBtnPopupEdit.addEventListener('click', closePopupEdit);
+// closeBtnPopupEdit.addEventListener('click', closePopupEdit);
 
 function handleFormSubmitPopupEdit (evt) {
   evt.preventDefault();
@@ -93,7 +95,7 @@ initialCards.forEach((image) => {
 
 const openBtnPopupAdd = document.querySelector('.profile__add-btn');
 const popupAdd = document.querySelector('.popup_modal-type_add');
-const closeBtnPopupAdd = popupAdd.querySelector('.popup__close-btn_modal-type_add');
+// const closeBtnPopupAdd = popupAdd.querySelector('.popup__close-btn_modal-type_add');
 
 const formElementPopupAdd = popupAdd.querySelector('.popup__form_modal-type_add');
 const nameImageInput = formElementPopupAdd.querySelector('.popup__input_modal-type_name-image');
@@ -103,12 +105,12 @@ function openPopupAdd() {
   openPopup(popupAdd);
 };
 
-function closePopupAdd() {
-  closePopup(popupAdd);
-};
+// function closePopupAdd() {
+//   closePopup(popupAdd);
+// };
 
 openBtnPopupAdd.addEventListener('click', openPopupAdd);
-closeBtnPopupAdd.addEventListener('click', closePopupAdd);
+// closeBtnPopupAdd.addEventListener('click', closePopupAdd);
 
 function handleFormSubmitPopupAdd (evt) {
   evt.preventDefault();
@@ -125,10 +127,41 @@ function handleFormSubmitPopupAdd (evt) {
 
 formElementPopupAdd.addEventListener('submit', handleFormSubmitPopupAdd);
 
-const closeBtnPopupImage = document.querySelector('.popup__close-btn_modal-type_image');
+// const closeBtnPopupImage = document.querySelector('.popup__close-btn_modal-type_image');
 
-function closePopupImage() {
-  closePopup(popupImage);
+// function closePopupImage() {
+//   closePopup(popupImage);
+// };
+
+// closeBtnPopupImage.addEventListener('click', closePopupImage);
+
+// Функция новой фичи handlePopupListeners
+const handleClosePopupEsc = (evt) => {
+  if (evt.key === 'Escape') {
+    closePopup(document.querySelector(".popup_opened"));
+  }
 };
 
-closeBtnPopupImage.addEventListener('click', closePopupImage);
+const handleClosePopupClick = (popupElement, evt, enableConfig) => {
+  const isOverlay = evt.target.classList.contains(enableConfig.popupSelector);
+  const isCloseBtn = evt.target.classList.contains(enableConfig.closeBtnSelector);
+  if (isOverlay || isCloseBtn) {
+    closePopup(popupElement);
+  }
+};
+
+const enablePopupListeners = (enableConfig) => {
+  const popupList = Array.from(document.querySelectorAll(`.${enableConfig.popupSelector}`));
+  popupList .forEach((popupElement) => {
+    popupElement.addEventListener('click', function (evt) {
+      handleClosePopupClick(popupElement, evt, enableConfig);
+    });
+
+  });
+};
+
+enablePopupListeners({
+  popupSelector: 'popup',
+  closeBtnSelector: 'popup__close-btn',
+  openBtnPopupEdit: 'profile__edit-btn'
+});
