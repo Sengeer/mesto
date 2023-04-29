@@ -82,6 +82,15 @@ const popupAdd = document.querySelector('.popup_modal-type_add');
 const formElementPopupAdd = popupAdd.querySelector('.popup__form_modal-type_add');
 const nameImageInput = formElementPopupAdd.querySelector('.popup__input_modal-type_name-image');
 const linkInput = formElementPopupAdd.querySelector('.popup__input_modal-type_link');
+const submitBtnPopupAdd = formElementPopupAdd.querySelector('.popup__submit-btn_modal-type_add');
+
+const handleOpenPopupAdd = () => {
+  formElementPopupAdd.reset();
+  submitBtnPopupAdd.classList.add('popup__submit-btn_inactive');
+  submitBtnPopupAdd.setAttribute('disabled', '');
+
+  openPopup(popupAdd);
+};
 
 function handleFormSubmitPopupAdd (evt) {
   evt.preventDefault();
@@ -97,9 +106,21 @@ function handleFormSubmitPopupAdd (evt) {
 };
 
 // Функции открытия и закрытия окон / добавления слушателей
+function hideAllInputError(popupModal) {
+  const textErrorList = Array.from(popupModal.querySelectorAll('.popup__text-error_active'));
+  const iputErrorList = Array.from(popupModal.querySelectorAll('.popup__input_type_error'));
+  textErrorList.forEach((textErrorElement) => {
+    textErrorElement.classList.remove('popup__text-error_active');
+  });
+  iputErrorList.forEach((iputErrorElement) => {
+    iputErrorElement.classList.remove('popup__input_type_error');
+  });
+};
+
 function openPopup(popupModal) {
   popupModal.classList.add('popup_opened');
   document.addEventListener('keydown', handleClosePopupEsc);
+  hideAllInputError(popupModal);
 };
 
 function closePopup(popupModal) {
@@ -123,7 +144,7 @@ const handleClosePopupClick = (popupElement, evt) => {
 
 const enablePopupListeners = () => {
   const popupList = Array.from(document.querySelectorAll('.popup'));
-  popupList .forEach((popupElement) => {
+  popupList.forEach((popupElement) => {
     popupElement.addEventListener('click', function (evt) {
       handleClosePopupClick(popupElement, evt);
     });
@@ -132,9 +153,7 @@ const enablePopupListeners = () => {
   openBtnPopupEdit.addEventListener('click', handleOpenPopupEdit);
   formElementPopupEdit.addEventListener('submit', handleFormSubmitPopupEdit);
 
-  openBtnPopupAdd.addEventListener('click', function () {
-    openPopup(popupAdd)
-  });
+  openBtnPopupAdd.addEventListener('click', handleOpenPopupAdd);
   formElementPopupAdd.addEventListener('submit', handleFormSubmitPopupAdd);
 };
 
