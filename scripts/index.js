@@ -103,6 +103,7 @@ function handleFormSubmitPopupAdd (evt) {
   closePopup(popupAdd);
 
   formElementPopupAdd.reset();
+  submitBtnPopupAdd.setAttribute('disabled', '');
 };
 
 // Функции открытия и закрытия окон / добавления слушателей
