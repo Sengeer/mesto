@@ -10,10 +10,14 @@ const profileDescription = document.querySelector('.profile__description');
 const formElementPopupEdit = popupEdit.querySelector('.popup__form_modal-type_edit');
 const nameInput = formElementPopupEdit.querySelector('.popup__input_modal-type_name');
 const descriptionInput = formElementPopupEdit.querySelector('.popup__input_modal-type_description');
+const submitBtnPopupEdit = formElementPopupEdit.querySelector('.popup__submit-btn_modal-type_edit');
 
 const handleOpenPopupEdit = () => {
   nameInput.value = profileName.textContent;
   descriptionInput.value = profileDescription.textContent;
+
+  submitBtnPopupEdit.removeAttribute('disabled');
+  submitBtnPopupEdit.classList.remove('popup__submit-btn_inactive');
 
   openPopup(popupEdit);
 };
@@ -146,7 +150,7 @@ const handleClosePopupClick = (popupElement, evt) => {
 const enablePopupListeners = () => {
   const popupList = Array.from(document.querySelectorAll('.popup'));
   popupList.forEach((popupElement) => {
-    popupElement.addEventListener('click', function (evt) {
+    popupElement.addEventListener('mousedown', function (evt) {
       handleClosePopupClick(popupElement, evt);
     });
   });
