@@ -7,8 +7,6 @@ const config = {
   activeErrorClass: 'popup__text-error_active'
 };
 
-const formList = Array.from(document.querySelectorAll(config.formSelector));
-
 class FormValidator {
   constructor(config, formElement) {
     this._formSelector = config.formSelector;
@@ -81,14 +79,28 @@ class FormValidator {
       this._buttonElement.removeAttribute('disabled');
     }
   }
-}
 
-const createFormValidation = (formElement) => {
-  return new FormValidator(config, formElement).enableValidation();
+  resetValidation() {
+    this._toggleButtonState();
+    this._inputList.forEach((inputElement) => {
+      this._inputElement = inputElement;
+      this._hideInputError();
+    });
+  }
 };
 
-formList.forEach((formElement) => {
-  createFormValidation(formElement);
-});
+const formValidators = {}
 
-export { createFormValidation };
+const enableValidation = (config) => {
+  const formList = Array.from(document.querySelectorAll(config.formSelector))
+  formList.forEach((formElement) => {
+    const validator = new FormValidator(config, formElement);
+    const formName = formElement.getAttribute('name');
+    formValidators[formName] = validator;
+    validator.enableValidation();
+  });
+};
+
+enableValidation(config);
+
+export { formValidators };

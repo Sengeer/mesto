@@ -1,5 +1,5 @@
-import { imageContainer, createCard } from "./Card.js";
-import { createFormValidation } from "./FormValidator.js";
+import { Card, initialCards } from "./Card.js";
+import { formValidators } from "./FormValidator.js";
 
 // Обработка редактирования профиля
 const popupEdit = document.querySelector('.popup_modal-type_edit');
@@ -16,7 +16,7 @@ const handleOpenPopupEdit = () => {
   nameInput.value = profileName.textContent;
   descriptionInput.value = profileDescription.textContent;
 
-  createFormValidation(popupEdit);
+  formValidators['profile-form'].resetValidation();
 
   openPopup(popupEdit);
 };
@@ -30,6 +30,32 @@ function handleFormSubmitPopupEdit (evt) {
   closePopup(popupEdit);
 };
 
+// Создание карточек
+const popupImage = document.querySelector('.popup_modal-type_image');
+const popupImageElement = popupImage.querySelector('.popup__image');
+const popupCaptionElement = popupImage.querySelector('.popup__caption');
+
+const imageContainer = document.querySelector('.photo-place__elements');
+
+function handleCardClick(name, link) {
+  popupImageElement.src = link;
+  popupImageElement.alt = name;
+  popupCaptionElement.textContent = name;
+
+  openPopup(popupImage);
+}
+
+const createCard = (object) => {
+  const card = new Card(object, '.card-template', handleCardClick);
+  const cardElement = card.generateCard();
+  return cardElement;
+};
+
+initialCards.forEach((nestedObject) => {
+  imageContainer.appendChild(createCard(nestedObject));
+});
+
+
 // Обработка добавления новой карточки
 const openBtnPopupAdd = document.querySelector('.profile__add-btn');
 const popupAdd = document.querySelector('.popup_modal-type_add');
@@ -37,12 +63,11 @@ const popupAdd = document.querySelector('.popup_modal-type_add');
 const formElementPopupAdd = popupAdd.querySelector('.popup__form_modal-type_add');
 const nameImageInput = formElementPopupAdd.querySelector('.popup__input_modal-type_name-image');
 const linkInput = formElementPopupAdd.querySelector('.popup__input_modal-type_link');
-const submitBtnPopupAdd = formElementPopupAdd.querySelector('.popup__submit-btn_modal-type_add');
 
 const handleOpenPopupAdd = () => {
   formElementPopupAdd.reset();
-  submitBtnPopupAdd.classList.add('popup__submit-btn_inactive');
-  submitBtnPopupAdd.setAttribute('disabled', '');
+
+  formValidators['add-form'].resetValidation();
 
   openPopup(popupAdd);
 };
@@ -57,25 +82,14 @@ function handleFormSubmitPopupAdd (evt) {
   closePopup(popupAdd);
 
   formElementPopupAdd.reset();
-  submitBtnPopupAdd.setAttribute('disabled', '');
+
+  formValidators['add-form'].resetValidation();
 };
 
 // Функции открытия и закрытия окон / добавления слушателей
-function hideAllInputError(popupModal) {
-  const textErrorList = Array.from(popupModal.querySelectorAll('.popup__text-error_active'));
-  const iputErrorList = Array.from(popupModal.querySelectorAll('.popup__input_type_error'));
-  textErrorList.forEach((textErrorElement) => {
-    textErrorElement.classList.remove('popup__text-error_active');
-  });
-  iputErrorList.forEach((iputErrorElement) => {
-    iputErrorElement.classList.remove('popup__input_type_error');
-  });
-};
-
 export function openPopup(popupModal) {
   popupModal.classList.add('popup_opened');
   document.addEventListener('keydown', handleClosePopupEsc);
-  hideAllInputError(popupModal);
 };
 
 function closePopup(popupModal) {

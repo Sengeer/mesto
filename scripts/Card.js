@@ -1,5 +1,3 @@
-import { openPopup } from "./index.js";
-
 const initialCards = [
   {
     name: 'Рускеала',
@@ -27,17 +25,13 @@ const initialCards = [
   }
 ];
 
-const popupImage = document.querySelector('.popup_modal-type_image');
-const popupImageElement = popupImage.querySelector('.popup__image');
-const popupCaptionElement = popupImage.querySelector('.popup__caption');
-
-const imageContainer = document.querySelector('.photo-place__elements');
-
 class Card {
-  constructor(data, templateSelector) {
+  constructor(data, templateSelector, handleCardClick) {
     this._name = data.name;
     this._link = data.link;
     this._templateSelector = templateSelector;
+    this._handleCardClick = handleCardClick;
+    
   }
 
   _getTemplate() {
@@ -51,27 +45,24 @@ class Card {
   }
 
   _setEventListeners() {
-    this._element.querySelector('.photo-place__image').addEventListener('click', () => {
-      this._handleOpenImage();
-    });
-    this._element.querySelector('.photo-place__like-btn').addEventListener('click', () => {
+    this._likeButton = this._element.querySelector('.photo-place__like-btn');
+    this._deleteButton = this._element.querySelector('.photo-place__delete-btn');
+    this._cardImage = this._element.querySelector('.photo-place__image');
+    this._cardTitle = this._element.querySelector('.photo-place__title');
+
+    this._likeButton.addEventListener('click', () => {
       this._handleLike();
     });
-    this._element.querySelector('.photo-place__delete-btn').addEventListener('click', () => {
+    this._deleteButton.addEventListener('click', () => {
       this._handleDelete();
     });
-  }
-
-  _handleOpenImage() {
-    popupImageElement.src = this._link;
-    popupImageElement.alt = this._name;
-    popupCaptionElement.textContent = this._name;
-
-    openPopup(popupImage);
+    this._cardImage.addEventListener('click', () => {
+      this._handleCardClick(this._name, this._link)
+    });
   }
 
   _handleLike() {
-    this._element.querySelector('.photo-place__like-btn').classList.toggle('photo-place__like-btn_active');
+    this._likeButton.classList.toggle('photo-place__like-btn_active');
   }
 
   _handleDelete() {
@@ -82,23 +73,12 @@ class Card {
     this._element = this._getTemplate();
     this._setEventListeners();
 
-    this._element.querySelector('.photo-place__image').src = this._link;
-    this._element.querySelector('.photo-place__image').alt = this._name;
-    this._element.querySelector('.photo-place__title').textContent = this._name;
+    this._cardImage.src = this._link;
+    this._cardImage.alt = this._name;
+    this._cardTitle.textContent = this._name;
 
     return this._element;
   }
 }
 
-const createCard = (object) => {
-  const card = new Card(object, '.card-template');
-  const cardElement = card.generateCard();
-  return cardElement;
-};
-
-initialCards.forEach((nestedObject) => {
-  imageContainer.appendChild(createCard(nestedObject));
-});
-
-
-export { imageContainer, createCard };
+export { Card, initialCards };
