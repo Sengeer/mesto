@@ -43,7 +43,7 @@ function handleCardClick(name, link) {
   popupCaptionElement.textContent = name;
 
   openPopup(popupImage);
-}
+};
 
 const createCard = (object) => {
   const card = new Card(object, '.card-template', handleCardClick);
@@ -87,7 +87,7 @@ function handleFormSubmitPopupAdd (evt) {
 };
 
 // Функции открытия и закрытия окон / добавления слушателей
-export function openPopup(popupModal) {
+function openPopup(popupModal) {
   popupModal.classList.add('popup_opened');
   document.addEventListener('keydown', handleClosePopupEsc);
 };

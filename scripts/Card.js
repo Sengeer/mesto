@@ -31,7 +31,7 @@ class Card {
     this._link = data.link;
     this._templateSelector = templateSelector;
     this._handleCardClick = handleCardClick;
-    
+
   }
 
   _getTemplate() {
@@ -79,6 +79,6 @@ class Card {
 
     return this._element;
   }
-}
+};
 
 export { Card, initialCards };
