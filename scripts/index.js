@@ -30,7 +30,7 @@ function handleFormSubmitPopupEdit (evt) {
   closePopup(popupEdit);
 };
 
-// функции Создания Карточек /Открытия Изображения
+// Функция создания крточек / функция обработки открытия изображения карточек
 const popupImage = document.querySelector('.popup_modal-type_image');
 const popupImageElement = popupImage.querySelector('.popup__image');
 const popupCaptionElement = popupImage.querySelector('.popup__caption');
