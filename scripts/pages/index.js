@@ -1,5 +1,5 @@
-import { Card, initialCards } from "./Card.js";
-import { formValidators } from "./FormValidator.js";
+import { Card, initialCards } from "../components/Card.js";
+import { formValidators } from "../components/FormValidator.js";
 
 // Обработка редактирования профиля
 const popupEdit = document.querySelector('.popup_modal-type_edit');
