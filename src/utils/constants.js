@@ -1,27 +1,35 @@
+
+const ruskealaImage = new URL('../images/photo-place-ruskeala.jpg', import.meta.url);
+const bermamytImage = new URL('../images/photo-place-bolshoi-bermamyt.jpg', import.meta.url);
+const elbrusImage = new URL('../images/photo-place-elbrus.jpg', import.meta.url);
+const chusovayaImage = new URL('../images/photo-place-chusovaya.jpg', import.meta.url);
+const sulakskiiImage = new URL('../images/photo-place-sulakskii-kanyon.jpg', import.meta.url);
+const arhyzImage = new URL('../images/photo-place-arhyz.jpg', import.meta.url);
+
 export const initialCards = [
   {
     name: 'Рускеала',
-    link: './images/photo-place-ruskeala.jpg'
+    link: ruskealaImage
   },
   {
     name: 'Гора Большой Бермамыт',
-    link: './images/photo-place-bolshoi-bermamyt.jpg'
+    link: bermamytImage
   },
   {
     name: 'Гора Эльбрус',
-    link: './images/photo-place-elbrus.jpg'
+    link: elbrusImage
   },
   {
     name: 'Чусовая',
-    link: './images/photo-place-chusovaya.jpg'
+    link: chusovayaImage
   },
   {
     name: 'Сулакский каньон',
-    link: './images/photo-place-sulakskii-kanyon.jpg'
+    link: sulakskiiImage
   },
   {
     name: 'Архыз',
-    link: './images/photo-place-arhyz.jpg'
+    link: arhyzImage
   }
 ];
 
