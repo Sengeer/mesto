@@ -42,7 +42,7 @@ const handleFormSubmit = (evt, inputList) => {
   };
 }
 
-//Функция-колбэк обработки закрытия попапов
+//Функция-колбэк обработки закрытия модальных окон
 const handleClosePopup = (popupSelector, inputList) => {
   if (popupSelector.classList[1] === 'popup_modal-type_edit') {
     formValidators['profile-form'].resetValidation();
@@ -81,7 +81,7 @@ popupImageInstance.setEventListeners();
 
 const profileInfoInstance = new UserInfo(profileSelectors);
 
-// Слушатели для кнопок открытия попапов
+// Слушатели для кнопок модальных окон
 openBtnPopupEdit.addEventListener('click',
   popupEditInstance.open.bind(popupEditInstance));
 openBtnPopupAdd.addEventListener('click',
