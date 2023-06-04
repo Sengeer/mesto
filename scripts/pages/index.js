@@ -1,129 +1,88 @@
-import { Card, initialCards } from "../components/Card.js";
+import Card from "../components/Card.js";
+import Section from '../components/Section.js';
+import PopupWithImage from "../components/PopupWithImage.js";
+import PopupWithForm from "../components/PopupWithForm.js";
+import UserInfo from "../components/UserInfo.js";
 import { formValidators } from "../components/FormValidator.js";
+import {
+  initialCards,
+  cardListSelector,
+  popupList,
+  openBtnPopupEdit,
+  openBtnPopupAdd,
+  profileSelectors
+} from "../utils/constants.js";
 
-// Обработка редактирования профиля
-const popupEdit = document.querySelector('.popup_modal-type_edit');
-
-const openBtnPopupEdit = document.querySelector('.profile__edit-btn');
-const profileName = document.querySelector('.profile__name');
-const profileDescription = document.querySelector('.profile__description');
-
-const formElementPopupEdit = popupEdit.querySelector('.popup__form_modal-type_edit');
-const nameInput = formElementPopupEdit.querySelector('.popup__input_modal-type_name');
-const descriptionInput = formElementPopupEdit.querySelector('.popup__input_modal-type_description');
-
-const handleOpenPopupEdit = () => {
-  nameInput.value = profileName.textContent;
-  descriptionInput.value = profileDescription.textContent;
-
-  formValidators['profile-form'].resetValidation();
-
-  openPopup(popupEdit);
+//Функция-колбэк обработки открытия изображения карточки
+const handleCardClick = (name, link) => {
+  popupImageInstance.open(name, link);
 };
 
-function handleFormSubmitPopupEdit (evt) {
-  evt.preventDefault();
-
-  profileName.textContent = nameInput.value;
-  profileDescription.textContent = descriptionInput.value;
-
-  closePopup(popupEdit);
-};
-
-// Функция создания крточек / функция обработки открытия изображения карточек
-const popupImage = document.querySelector('.popup_modal-type_image');
-const popupImageElement = popupImage.querySelector('.popup__image');
-const popupCaptionElement = popupImage.querySelector('.popup__caption');
-
-const imageContainer = document.querySelector('.photo-place__elements');
-
-function handleCardClick(name, link) {
-  popupImageElement.src = link;
-  popupImageElement.alt = name;
-  popupCaptionElement.textContent = name;
-
-  openPopup(popupImage);
-};
-
-const createCard = (object) => {
-  const card = new Card(object, '.card-template', handleCardClick);
+//Функция-колбэк создания и размещенеия карточки
+const createCard = (item) => {
+  const card = new Card(item, '.card-template', handleCardClick);
   const cardElement = card.generateCard();
-  return cardElement;
-};
+  cardList.addItem(cardElement);
+}
 
-initialCards.forEach((nestedObject) => {
-  imageContainer.appendChild(createCard(nestedObject));
-});
+//Функция-колбэк обработки отправки формы
+const handleFormSubmit = (evt, inputList) => {
+  if (evt.target.classList[1] === 'popup__form_modal-type_edit') {
+    profileInfoInstance.setUserInfo(inputList[0].value, inputList[1].value);
 
+    popupEditInstance.close();
+  } else if (evt.target.classList[1] === 'popup__form_modal-type_add') {
+    const newObject = { name: inputList[0].value, link: inputList[1].value };
 
-// Обработка добавления новой карточки
-const openBtnPopupAdd = document.querySelector('.profile__add-btn');
-const popupAdd = document.querySelector('.popup_modal-type_add');
+    createCard(newObject);
 
-const formElementPopupAdd = popupAdd.querySelector('.popup__form_modal-type_add');
-const nameImageInput = formElementPopupAdd.querySelector('.popup__input_modal-type_name-image');
-const linkInput = formElementPopupAdd.querySelector('.popup__input_modal-type_link');
+    popupAddInstance.close();
 
-const handleOpenPopupAdd = () => {
-  formElementPopupAdd.reset();
+    formValidators['add-form'].resetValidation();
+  };
+}
 
-  formValidators['add-form'].resetValidation();
+//Функция-колбэк обработки закрытия попапов
+const handleClosePopup = (popupSelector, inputList) => {
+  if (popupSelector.classList[1] === 'popup_modal-type_edit') {
+    formValidators['profile-form'].resetValidation();
 
-  openPopup(popupAdd);
-};
+    const profileInfoObject = profileInfoInstance.getUserInfo();
+    inputList[0].value = profileInfoObject.name;
+    inputList[1].value = profileInfoObject.description;
 
-function handleFormSubmitPopupAdd (evt) {
-  evt.preventDefault();
+  } else if (popupSelector.classList[1] === 'popup_modal-type_add') {
+    formValidators['add-form'].resetValidation();
+  };
+}
 
-  const newObject = { name: nameImageInput.value, link: linkInput.value};
+//Создание экземпляров класса
+const cardList = new Section({
+  items: initialCards,
+  renderer: createCard
+}, cardListSelector);
+cardList.renderItems();
 
-  imageContainer.prepend(createCard(newObject));
+const popupEditInstance = new PopupWithForm(
+  popupList.popupEditSelector,
+  handleFormSubmit,
+  handleClosePopup);
+popupEditInstance.setEventListeners();
 
-  closePopup(popupAdd);
+const popupAddInstance = new PopupWithForm(
+  popupList.popupAddSelector,
+  handleFormSubmit,
+  handleClosePopup);
+popupAddInstance.setEventListeners();
 
-  formElementPopupAdd.reset();
+const popupImageInstance = new PopupWithImage(
+  popupList.popupImageSelector);
+popupImageInstance.setEventListeners();
 
-  formValidators['add-form'].resetValidation();
-};
+const profileInfoInstance = new UserInfo(profileSelectors);
 
-// Функции открытия и закрытия окон / добавления слушателей
-function openPopup(popupModal) {
-  popupModal.classList.add('popup_opened');
-  document.addEventListener('keydown', handleClosePopupEsc);
-};
-
-function closePopup(popupModal) {
-  popupModal.classList.remove('popup_opened');
-  document.removeEventListener('keydown', handleClosePopupEsc);
-};
-
-const handleClosePopupEsc = (evt) => {
-  if (evt.key === 'Escape') {
-    closePopup(document.querySelector('.popup_opened'));
-  }
-};
-
-const handleClosePopupClick = (popupElement, evt) => {
-  const isOverlay = evt.target.classList.contains('popup');
-  const isCloseBtn = evt.target.classList.contains('popup__close-btn');
-  if (isOverlay || isCloseBtn) {
-    closePopup(popupElement);
-  }
-};
-
-const enablePopupListeners = () => {
-  const popupList = Array.from(document.querySelectorAll('.popup'));
-  popupList.forEach((popupElement) => {
-    popupElement.addEventListener('mousedown', function (evt) {
-      handleClosePopupClick(popupElement, evt);
-    });
-  });
-
-  openBtnPopupEdit.addEventListener('click', handleOpenPopupEdit);
-  formElementPopupEdit.addEventListener('submit', handleFormSubmitPopupEdit);
-
-  openBtnPopupAdd.addEventListener('click', handleOpenPopupAdd);
-  formElementPopupAdd.addEventListener('submit', handleFormSubmitPopupAdd);
-};
-
-enablePopupListeners();
+// Слушатели для кнопок открытия попапов
+openBtnPopupEdit.addEventListener('click',
+  popupEditInstance.open.bind(popupEditInstance));
+openBtnPopupAdd.addEventListener('click',
+  popupAddInstance.open.bind(popupAddInstance));
