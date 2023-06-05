@@ -50,18 +50,17 @@ const handleFormSubmitAdd = (formValues) => {
   formValidators['add-form'].resetValidation();
 }
 
-//Функция-колбэк обработки открытия модальных окон
-const handleOpenPopup = (popupSelector, inputList) => {
-  if (popupSelector.classList[1] === 'popup_modal-type_edit') {
-    formValidators['profile-form'].resetValidation();
+//Функции-колбэк обработки открытия модальных окон
+const handleOpenPopupEdit = (inputList) => {
+  formValidators['profile-form'].resetValidation();
 
-    const profileInfoObject = profileInfoInstance.getUserInfo();
-    inputList[0].value = profileInfoObject.name;
-    inputList[1].value = profileInfoObject.description;
+  const profileInfoObject = profileInfoInstance.getUserInfo();
+  inputList[0].value = profileInfoObject.name;
+  inputList[1].value = profileInfoObject.description;
+}
 
-  } else if (popupSelector.classList[1] === 'popup_modal-type_add') {
-    formValidators['add-form'].resetValidation();
-  };
+const handleOpenPopupAdd = () => {
+  formValidators['add-form'].resetValidation();
 }
 
 //Создание экземпляров класса
@@ -72,16 +71,18 @@ cardList.renderItems(initialCards);
 
 const popupEditInstance = new PopupWithForm(
   popupList.popupEditSelector,
-  handleFormSubmitEdit,
-  null,
-  handleOpenPopup);
+  {
+    handleFormSubmit: handleFormSubmitEdit,
+    handleOpenPopup: handleOpenPopupEdit
+  });
 popupEditInstance.setEventListeners();
 
 const popupAddInstance = new PopupWithForm(
   popupList.popupAddSelector,
-  null,
-  handleFormSubmitAdd,
-  handleOpenPopup);
+  {
+    handleFormSubmit: handleFormSubmitAdd,
+    handleOpenPopup: handleOpenPopupAdd
+  });
 popupAddInstance.setEventListeners();
 
 const popupImageInstance = new PopupWithImage(
