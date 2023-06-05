@@ -4,14 +4,15 @@ import Section from '../components/Section.js';
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
-import { formValidators } from "../components/FormValidator.js";
+import FormValidator from "../components/FormValidator.js";
 import {
   initialCards,
   cardListSelector,
   popupList,
   openBtnPopupEdit,
   openBtnPopupAdd,
-  profileSelectors
+  profileSelectors,
+  validationConfig
 } from "../utils/constants.js";
 
 //Функция-колбэк обработки открытия изображения карточки
@@ -26,25 +27,31 @@ const createCard = (item) => {
   cardList.addItem(cardElement);
 }
 
-//Функция-колбэк обработки отправки формы
-const handleFormSubmit = (evt, inputList) => {
-  if (evt.target.classList[1] === 'popup__form_modal-type_edit') {
-    profileInfoInstance.setUserInfo(inputList[0].value, inputList[1].value);
+//Функции-колбэк обработки отправки форм
+const handleFormSubmitEdit = (formValues) => {
+  const {
+    'name-input': name,
+    'description-input': description
+  } = formValues;
+  profileInfoInstance.setUserInfo(name, description);
 
-    popupEditInstance.close();
-  } else if (evt.target.classList[1] === 'popup__form_modal-type_add') {
-    const newObject = { name: inputList[0].value, link: inputList[1].value };
-
-    createCard(newObject);
-
-    popupAddInstance.close();
-
-    formValidators['add-form'].resetValidation();
-  };
+  popupEditInstance.close();
 }
 
-//Функция-колбэк обработки закрытия модальных окон
-const handleClosePopup = (popupSelector, inputList) => {
+const handleFormSubmitAdd = (formValues) => {
+  const {
+    'name-image-input': nameImage,
+    'link-input': linkImage
+  } = formValues;
+  createCard({ name: nameImage, link: linkImage });
+
+  popupAddInstance.close();
+
+  formValidators['add-form'].resetValidation();
+}
+
+//Функция-колбэк обработки открытия модальных окон
+const handleOpenPopup = (popupSelector, inputList) => {
   if (popupSelector.classList[1] === 'popup_modal-type_edit') {
     formValidators['profile-form'].resetValidation();
 
@@ -59,21 +66,22 @@ const handleClosePopup = (popupSelector, inputList) => {
 
 //Создание экземпляров класса
 const cardList = new Section({
-  items: initialCards,
   renderer: createCard
 }, cardListSelector);
-cardList.renderItems();
+cardList.renderItems(initialCards);
 
 const popupEditInstance = new PopupWithForm(
   popupList.popupEditSelector,
-  handleFormSubmit,
-  handleClosePopup);
+  handleFormSubmitEdit,
+  null,
+  handleOpenPopup);
 popupEditInstance.setEventListeners();
 
 const popupAddInstance = new PopupWithForm(
   popupList.popupAddSelector,
-  handleFormSubmit,
-  handleClosePopup);
+  null,
+  handleFormSubmitAdd,
+  handleOpenPopup);
 popupAddInstance.setEventListeners();
 
 const popupImageInstance = new PopupWithImage(
@@ -82,8 +90,23 @@ popupImageInstance.setEventListeners();
 
 const profileInfoInstance = new UserInfo(profileSelectors);
 
-// Слушатели для кнопок модальных окон
+// Слушатели для кнопок открытия модальных окон
 openBtnPopupEdit.addEventListener('click',
   popupEditInstance.open.bind(popupEditInstance));
 openBtnPopupAdd.addEventListener('click',
   popupAddInstance.open.bind(popupAddInstance));
+
+// Создание экземпляров класса лайв-валидации
+const formValidators = {};
+
+const enableValidation = (config) => {
+  const formList = Array.from(document.querySelectorAll(config.formSelector))
+  formList.forEach((formElement) => {
+    const validator = new FormValidator(config, formElement);
+    const formName = formElement.getAttribute('name');
+    formValidators[formName] = validator;
+    validator.enableValidation();
+  });
+};
+
+enableValidation(validationConfig);

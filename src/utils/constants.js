@@ -48,3 +48,12 @@ export const profileSelectors = {
 
 export const openBtnPopupEdit = document.querySelector('.profile__edit-btn');
 export const openBtnPopupAdd = document.querySelector('.profile__add-btn');
+
+export const validationConfig = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__submit-btn',
+  inactiveButtonClass: 'popup__submit-btn_inactive',
+  inputErrorClass: 'popup__input_type_error',
+  activeErrorClass: 'popup__text-error_active'
+};
