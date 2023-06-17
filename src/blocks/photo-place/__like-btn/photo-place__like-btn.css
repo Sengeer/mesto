@@ -7,6 +7,9 @@
   background-repeat: no-repeat;
   cursor: pointer;
   transition: opacity ease-in-out 0.2s;
+  justify-self: center;
+  align-self: flex-end;
+  grid-area: photo-place__like-btn;
 }
 
 .photo-place__like-btn:hover {
