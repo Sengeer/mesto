@@ -3,12 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./pages/index.css">
+  <script type="module" src="./pages/index.js"></script>
   <title>Место</title>
 </head>
 <body class="root">
   <header class="header">
     <img
-    src="<%=require('./images/header-logo.svg')%>"
+    src="./images/header-logo.svg"
     alt="Лого"
     class="header__logo">
   </header>
@@ -131,6 +133,23 @@
       </p>
       <button
       class="popup__close-btn popup__close-btn_modal-type_image"
+      type="button"
+      aria-label="Закрыть окно">
+      </button>
+    </div>
+  </div>
+  <div class="popup popup_modal-type_confirm">
+    <div class="popup__container popup__container_modal-type_confirm">
+      <h2 class="popup__title popup__title_modal-type_confirm">
+        Вы уверены?
+      </h2>
+      <button
+      class="popup__submit-btn popup__submit-btn_modal-type_confirm"
+      type="submit">
+        Да
+      </button>
+      <button
+      class="popup__close-btn popup__close-btn_modal-type_confirm"
       type="button"
       aria-label="Закрыть окно">
       </button>

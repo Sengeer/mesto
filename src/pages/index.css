@@ -36,3 +36,4 @@
 @import url(../blocks/popup/__close-btn/popup__close-btn.css);
 @import url(../blocks/popup/__image/popup__image.css);
 @import url(../blocks/popup/__caption/popup__caption.css);
+@import url(../blocks/popup/__title/_modal-type_confirm/popup__title_modal-type_confirm.css);
