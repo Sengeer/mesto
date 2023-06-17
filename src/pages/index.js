@@ -14,6 +14,7 @@ import {
   profileSelectors,
   validationConfig
 } from "../utils/constants.js";
+import Api from "../components/Api.js";
 
 //Функция-колбэк обработки открытия изображения карточки
 const handleCardClick = (name, link) => {
@@ -91,6 +92,14 @@ popupImageInstance.setEventListeners();
 
 const profileInfoInstance = new UserInfo(profileSelectors);
 
+const apiInstance = new Api({
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-69',
+  headers: {
+    authorization: '8eb2c5a1-7216-4743-9490-cbf6391354bb',
+    'Content-Type': 'application/json'
+  }
+});
+
 // Слушатели для кнопок открытия модальных окон
 openBtnPopupEdit.addEventListener('click',
   popupEditInstance.open.bind(popupEditInstance));
@@ -111,3 +120,19 @@ const enableValidation = (config) => {
 };
 
 enableValidation(validationConfig);
+
+Promise.all([
+  apiInstance.getUserInfo(),
+  apiInstance.getInitialCards()
+])
+.then(([dataUser, dataCards]) => {
+  console.log(dataUser);
+  console.log(dataCards);
+  const {
+    name: name,
+    about: description,
+    avatar: avatarLink
+  } = dataUser;
+  profileInfoInstance.setUserInfo(name, description, avatarLink);
+})
+.catch (err => console.error(`Ошибка: ${err}`));

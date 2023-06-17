@@ -39,12 +39,13 @@ export const popupList = {
   popupEditSelector: '.popup_modal-type_edit',
   popupAddSelector: '.popup_modal-type_add',
   popupImageSelector: '.popup_modal-type_image'
-}
+};
 
 export const profileSelectors = {
   nameSelector: '.profile__name',
-  descriptionSelector: '.profile__description'
-}
+  descriptionSelector: '.profile__description',
+  avatarSelector: '.profile__avatar'
+};
 
 export const openBtnPopupEdit = document.querySelector('.profile__edit-btn');
 export const openBtnPopupAdd = document.querySelector('.profile__add-btn');
