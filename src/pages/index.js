@@ -1,4 +1,4 @@
-import "./index.css";
+// import "./index.css";
 import Card from "../components/Card.js";
 import Section from '../components/Section.js';
 import PopupWithImage from "../components/PopupWithImage.js";
@@ -22,34 +22,9 @@ const errorHandler = (err) => {
   console.error(`Ошибка! Статус: ${err.status} // URL: ${err.url}`);
 }
 
-//Функция обработки асинхронных запросов
-const handleAsynchRequests = (promisesArray) => {
-  Promise.all(promisesArray)
-    .then(([resMyUserData, resCardsData]) => {
-      profileInfoInstance.setUserInfo(
-        resMyUserData.name,
-        resMyUserData.about,
-        resMyUserData.avatar
-      );
-
-      if (Array.isArray(resCardsData)) {
-        const reverseCardsArr = resCardsData.reverse();
-        reverseCardsArr.forEach(item => item.myId = resMyUserData._id);
-        cardList.renderItems(reverseCardsArr);
-      } else {
-        const cardData = resCardsData;
-        cardData.myId = resMyUserData._id;
-        createCard(cardData);
-        popupAddInstance.close();
-      };
-    })
-    .catch(err => errorHandler(err))
-    .finally(() => popupAddInstance.addDefaultTextSubmitButton());
-};
-
 //Функция-колбэк обработки открытия изображения карточки
 const handleCardClick = (name, link) => {
-  popupImageInstance.open(name, link);
+  popupImage.open(name, link);
 };
 
 //Функция-колбэк создания, размещенеия карточки и её функционала
@@ -60,17 +35,17 @@ const createCard = (item) => {
     handleCardClick,
     {
       handleOpenPopupDelete: (card, cardId) => {
-        popupConfirmInstance.open(card, cardId);
+        popupConfirm.open(card, cardId);
       },
       handleLikeClick: (likeButton, cardId) => {
         if (likeButton.classList.contains('photo-place__like-btn_active')) {
-          apiInstance.removeCardLike(cardId)
+          api.removeCardLike(cardId)
             .then(resCardData => {
               card.toggleLike(resCardData.likes);
             })
             .catch(err => errorHandler(err))
         } else {
-          apiInstance.addCardLike(cardId)
+          api.addCardLike(cardId)
             .then(resCardData => {
               card.toggleLike(resCardData.likes);
             })
@@ -84,66 +59,74 @@ const createCard = (item) => {
 
 //Функции-колбэк обработки отправки форм
 const handleFormSubmitEdit = (formValues) => {
-  apiInstance.patchUserInfo({
+  api.patchUserInfo({
     name: formValues.name,
     description: formValues.description
   })
     .then(resMyUserData => {
-      profileInfoInstance.setUserInfo(
+      profileInfo.setUserInfo(
         resMyUserData.name,
         resMyUserData.about,
         resMyUserData.avatar
       );
-      popupEditInstance.close();
+
+      formValidators['profile-form'].disableSubmitButton();
+
+      popupEdit.close();
     })
     .catch(err => errorHandler(err))
-    .finally(() => popupEditInstance.addDefaultTextSubmitButton());
-
-  formValidators['profile-form'].disableSubmitButton();
+    .finally(() => popupEdit.addDefaultTextSubmitButton());
 };
 
 const handleFormSubmitAdd = (formValues) => {
+  api.addNewCard({
+    name: formValues.image,
+    link: formValues.link
+  })
+    .then((resCardData) => {
+      const cardData = resCardData;
 
-  handleAsynchRequests([
-    apiInstance.getUserInfo(),
-    apiInstance.addNewCard({
-      name: formValues.image,
-      link: formValues.link
+      cardData.myId = profileInfo.getMyId();
+
+      createCard(cardData);
+
+      formValidators['add-form'].disableSubmitButton();
+
+      popupAdd.close();
     })
-  ]);
-
-  formValidators['add-form'].disableSubmitButton();
+    .catch(err => errorHandler(err))
+    .finally(() => popupAdd.addDefaultTextSubmitButton());
 };
 
 const handleFormSubmitAvatar = (formValues) => {
-  apiInstance.patchUserInfo({ avatarLink: formValues.link })
+  api.patchUserInfo({ avatarLink: formValues.link })
     .then(resMyUserData => {
-      profileInfoInstance.setUserInfo(
+      profileInfo.setUserInfo(
         resMyUserData.name,
         resMyUserData.about,
         resMyUserData.avatar
       );
-      popupAvatarInstance.close();
+
+      formValidators['avatar-form'].disableSubmitButton();
+
+      popupAvatar.close();
     })
     .catch(err => errorHandler(err))
-    .finally(() => popupAvatarInstance.addDefaultTextSubmitButton());
-
-  formValidators['avatar-form'].disableSubmitButton();
+    .finally(() => popupAvatar.addDefaultTextSubmitButton());
 };
 
 const handleFormSubmitConfirm = (card, cardId) => {
-  apiInstance.deleteCard(cardId)
+  api.deleteCard(cardId)
     .then(() => {
       card.removeCard();
-      popupConfirmInstance.close();
+      popupConfirm.close();
     })
     .catch(err => errorHandler(err))
-    .finally();
 };
 
 //Функции-колбэк обработки открытия модальных окон
 const handleOpenPopupEdit = (inputList) => {
-  const profileInfoObject = profileInfoInstance.getUserInfo();
+  const profileInfoObject = profileInfo.getUserInfo();
   inputList[0].value = profileInfoObject.name;
   inputList[1].value = profileInfoObject.description;
 
@@ -154,10 +137,7 @@ const handleOpenPopupAdd = () => {
   formValidators['add-form'].resetValidation();
 };
 
-const handleOpenPopupAvatar = (inputList) => {
-  const profileAvatarObject = profileInfoInstance.getUserInfo();
-  inputList[0].value = profileAvatarObject.avatar;
-
+const handleOpenPopupAvatar = () => {
   formValidators['avatar-form'].resetValidation();
 };
 
@@ -166,44 +146,44 @@ const cardList = new Section({
   renderer: createCard
 }, cardListSelector);
 
-const popupEditInstance = new PopupWithForm(
+const popupEdit = new PopupWithForm(
   popupList.popupEditSelector,
   {
     handleFormSubmit: handleFormSubmitEdit,
     handleOpenPopup: handleOpenPopupEdit
   });
-popupEditInstance.setEventListeners();
+popupEdit.setEventListeners();
 
-const popupAddInstance = new PopupWithForm(
+const popupAdd = new PopupWithForm(
   popupList.popupAddSelector,
   {
     handleFormSubmit: handleFormSubmitAdd,
     handleOpenPopup: handleOpenPopupAdd
   });
-popupAddInstance.setEventListeners();
+popupAdd.setEventListeners();
 
-const popupImageInstance = new PopupWithImage(
+const popupImage = new PopupWithImage(
   popupList.popupImageSelector);
-popupImageInstance.setEventListeners();
+popupImage.setEventListeners();
 
-const popupAvatarInstance = new PopupWithForm(
+const popupAvatar = new PopupWithForm(
   popupList.popupAvatarSelector,
   {
     handleFormSubmit: handleFormSubmitAvatar,
     handleOpenPopup: handleOpenPopupAvatar
   });
-popupAvatarInstance.setEventListeners();
+popupAvatar.setEventListeners();
 
-const popupConfirmInstance = new PopupWithConfirmation(
+const popupConfirm = new PopupWithConfirmation(
   popupList.popupConfirmSelector,
   {
     handleFormSubmit: handleFormSubmitConfirm,
   });
-  popupConfirmInstance.setEventListeners();
+  popupConfirm.setEventListeners();
 
-const profileInfoInstance = new UserInfo(profileSelectors);
+const profileInfo = new UserInfo(profileSelectors);
 
-const apiInstance = new Api({
+const api = new Api({
   baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-69',
   headers: {
     authorization: '8eb2c5a1-7216-4743-9490-cbf6391354bb',
@@ -213,19 +193,20 @@ const apiInstance = new Api({
 
 // Слушатели для кнопок открытия модальных окон
 openBtnPopupEdit.addEventListener('click',
-  popupEditInstance.open.bind(popupEditInstance));
+  popupEdit.open.bind(popupEdit));
 
 openBtnPopupAdd.addEventListener('click',
-  popupAddInstance.open.bind(popupAddInstance));
+  popupAdd.open.bind(popupAdd));
 
 openBtnPopupAvatar.addEventListener('click',
-  popupAvatarInstance.open.bind(popupAvatarInstance));
+  popupAvatar.open.bind(popupAvatar));
 
 // Создание экземпляров класса лайв-валидации
 const formValidators = {};
 
 const enableValidation = (config) => {
   const formList = Array.from(document.querySelectorAll(config.formSelector))
+
   formList.forEach((formElement) => {
     const validator = new FormValidator(config, formElement);
     const formName = formElement.getAttribute('name');
@@ -237,7 +218,22 @@ const enableValidation = (config) => {
 enableValidation(validationConfig);
 
 // Первичные запросы
-handleAsynchRequests([
-  apiInstance.getUserInfo(),
-  apiInstance.getInitialCards()
-]);
+Promise.all([
+  api.getUserInfo(),
+  api.getInitialCards()
+])
+  .then(([resMyUserData, resCardsData]) => {
+    profileInfo.setUserInfo(
+      resMyUserData.name,
+      resMyUserData.about,
+      resMyUserData.avatar,
+      resMyUserData._id
+    );
+
+    const reverseCardsArr = resCardsData.reverse();
+
+    reverseCardsArr.forEach(item => item.myId = resMyUserData._id);
+
+    cardList.renderItems(reverseCardsArr);
+  })
+  .catch(err => errorHandler(err));

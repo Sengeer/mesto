@@ -4,8 +4,7 @@ export default class Card {
     templateSelector,
     handleCardClick,
     { handleOpenPopupDelete,
-      handleLikeClick }
-  ) {
+      handleLikeClick }) {
     this._name = item.name;
     this._link = item.link;
     this._myId = item.myId;
@@ -91,4 +90,4 @@ export default class Card {
 
     return this._element;
   }
-};
+}

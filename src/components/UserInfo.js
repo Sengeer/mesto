@@ -5,6 +5,10 @@ export default class UserInfo {
     this._avatar = document.querySelector(profileSelectors.avatarSelector);
   }
 
+  getMyId() {
+    return this._myId;
+  }
+
   getUserInfo() {
     return {
       name: this._name.textContent,
@@ -13,10 +17,13 @@ export default class UserInfo {
     }
   }
 
-  setUserInfo(name, description, avatarLink) {
-    this._name.textContent = name;
-    this._description.textContent = description;
-    this._avatar.src = avatarLink;
-    this._avatar.alt = name;
+  setUserInfo(name, description, avatarLink, myId) {
+    if (name || description || avatarLink || myId) {
+      this._name.textContent = name;
+      this._avatar.alt = name;
+      this._description.textContent = description;
+      this._avatar.src = avatarLink;
+      this._myId = myId;
+    };
   }
 }
