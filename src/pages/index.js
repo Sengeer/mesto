@@ -1,4 +1,4 @@
-import "./index.css";
+// import "./index.css";
 import Card from "../components/Card.js";
 import Section from '../components/Section.js';
 import PopupWithImage from "../components/PopupWithImage.js";
@@ -67,7 +67,8 @@ const handleFormSubmitEdit = (formValues) => {
       profileInfo.setUserInfo(
         resMyUserData.name,
         resMyUserData.about,
-        resMyUserData.avatar
+        resMyUserData.avatar,
+        resMyUserData._id
       );
 
       formValidators['profile-form'].disableSubmitButton();
@@ -84,11 +85,9 @@ const handleFormSubmitAdd = (formValues) => {
     link: formValues.link
   })
     .then((resCardData) => {
-      const cardData = resCardData;
+      resCardData.myId = profileInfo.getMyId();
 
-      cardData.myId = profileInfo.getMyId();
-
-      createCard(cardData);
+      createCard(resCardData);
 
       formValidators['add-form'].disableSubmitButton();
 
@@ -104,7 +103,8 @@ const handleFormSubmitAvatar = (formValues) => {
       profileInfo.setUserInfo(
         resMyUserData.name,
         resMyUserData.about,
-        resMyUserData.avatar
+        resMyUserData.avatar,
+        resMyUserData._id
       );
 
       formValidators['avatar-form'].disableSubmitButton();
