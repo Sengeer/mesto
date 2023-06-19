@@ -5,9 +5,13 @@ export default class Section {
   }
 
   renderItems(initialCards) {
-    initialCards.forEach(item => {
+    if (Array.isArray(initialCards)) {
+      initialCards.forEach(item => {
+        this._renderer(item);
+      });
+    } else {
       this._renderer(item);
-    });
+    };
   }
 
   addItem(element) {

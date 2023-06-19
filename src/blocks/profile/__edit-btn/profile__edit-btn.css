@@ -9,9 +9,9 @@
   top: 10px;
   right: 37px;
   align-self: center;
-  grid-area: profile__edit-btn;
   cursor: pointer;
   transition: opacity ease-in-out 0.2s;
+  grid-area: profile__edit-btn;
 }
 
 .profile__edit-btn:hover {

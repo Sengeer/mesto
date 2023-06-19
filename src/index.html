@@ -2,9 +2,7 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="./pages/index.css">
-  <script type="module" src="./pages/index.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=
   <title>Место</title>
 </head>
 <body class="root">
@@ -102,12 +100,12 @@
         <input
           type="text"
           class="popup__input popup__input_modal-type_name-image"
-          name="name-image-input"
+          name="image-input"
           placeholder="Название"
           minlength="2"
           maxlength="30"
           required>
-        <p class="popup__text-error name-image-input-error"></p>
+        <p class="popup__text-error image-input-error"></p>
         <input
           type="url"
           class="popup__input popup__input_modal-type_link"
@@ -148,11 +146,16 @@
       <h2 class="popup__title popup__title_modal-type_confirm">
         Вы уверены?
       </h2>
-      <button
-      class="popup__submit-btn popup__submit-btn_modal-type_confirm"
-      type="submit">
-        Да
-      </button>
+      <form
+      class="popup__form popup__form_modal-type_confirm"
+      name="confirm-form"
+      novalidate>
+        <button
+        class="popup__submit-btn popup__submit-btn_modal-type_confirm"
+        type="submit">
+          Да
+        </button>
+      </form>
       <button
       class="popup__close-btn popup__close-btn_modal-type_confirm"
       type="button"
@@ -160,14 +163,14 @@
       </button>
     </div>
   </div>
-  <div class="popup popup_modal-type_update">
-    <div class="popup__container popup__container_modal-type_update">
-      <h2 class="popup__title popup__title_modal-type_update">
+  <div class="popup popup_modal-type_avatar">
+    <div class="popup__container popup__container_modal-type_avatar">
+      <h2 class="popup__title popup__title_modal-type_avatar">
         Обновить аватар
       </h2>
       <form
-        class="popup__form popup__form_modal-type_update"
-        name="update-form"
+        class="popup__form popup__form_modal-type_avatar"
+        name="avatar-form"
         novalidate>
         <input
           type="url"
@@ -177,13 +180,13 @@
           required>
         <p class="popup__text-error link-input-error"></p>
         <button
-        class="popup__submit-btn popup__submit-btn_modal-type_update"
+        class="popup__submit-btn popup__submit-btn_modal-type_avatar"
         type="submit">
           Сохранить
         </button>
       </form>
       <button
-      class="popup__close-btn popup__close-btn_modal-type_update"
+      class="popup__close-btn popup__close-btn_modal-type_avatar"
       type="button"
       aria-label="Закрыть окно">
       </button>
@@ -200,7 +203,7 @@
         type="button"
         aria-label="Поставить лайк">
         </button>
-        <p class="photo-place__like-counter">0</p>
+        <p class="photo-place__like-counter"></p>
       </div>
       <button
       class="photo-place__delete-btn"
