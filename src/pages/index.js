@@ -102,8 +102,7 @@ const handleFormSubmitEdit = (formValues) => {
   formValidators['profile-form'].disableSubmitButton();
 };
 
-const handleFormSubmitAdd = (formValues, evt) => {
-  evt.preventDefault();
+const handleFormSubmitAdd = (formValues) => {
 
   handleAsynchRequests([
     apiInstance.getUserInfo(),
