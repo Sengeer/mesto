@@ -5,6 +5,8 @@
 
 #### Проект [место](https://sengeer.github.io/mesto/) - одностраничный сайт. Сверстан в образовательных целях, с применением HTML, CSS и JavaScript.
 
+![](https://downloader.disk.yandex.ru/preview/a1f5d0b2bfc7d2b2cf3509ff4b2b9b19b99165712f7bd4cfe7669a1b631ce0d4/649b0ed8/G49EFbEfn8KHFPVOPr-Afv08xXEpSBkgiGcIAnpnYPOBYbEYG431Qaj3ZdNvCuR-j5XduoK8NJ-v7uGgK3aO9A%3D%3D?uid=0&filename=Image%20%281%29.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=2048x2048)
+
 В проекте применен БЭМ подход (Block-Element-Modifier). Он позволяет снизить сложность и улучшить читабельность кода, а также сделать его более структурированным.
 Код разбивается на блоки (block), элементы (element) и модификаторы (modifier), которые имеют определенную иерархию и не зависят друг от друга.
 
