@@ -11,7 +11,7 @@
 - Добавление карточки с фотографиями, удаление фотографий и лайки к ним с помощью JavaScript;
 - Открытие изображений во всплывающем окне;
 - Валидация всех форм и улучшен UX при работе с всплывающими окнами;
-![](https://downloader.disk.yandex.ru/preview/cfac15a1b0d7633d9fe8796d7e390ab85f76651951d07b03883a2f20ff5db6b6/649b33a9/PQraX3QDOShYIvWZwU9QQezzIxR33dVdoLul6odrH5HpfeExRwNTTVZWB3cf4YXjJCcugtMBeuYd6QY3INVh4A%3D%3D?uid=0&filename=Untitled.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=2048x2048)
+![](https://downloader.disk.yandex.ru/preview/5439b089b1b6d232a33170a46e0fd8afc8596e592bd736985c10b796fab49d98/649b3926/Y6xZ7uiQSsOuMZN3l40ACLu398tV4t0lclfC6neitOa31t84KB0q634Puc1zZSEZmmwgzCSnn9RuHGq8_t8x2Q%3D%3D?uid=0&filename=123.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=2048x2048)
 - Редактирование профиля, позволяющее изменять данные о себе и изображение пользователя;
 
 **В проекте применен БЭМ подход.** Он позволяет снизить сложность и улучшить читабельность кода, а также сделать его более структурированным.
@@ -25,7 +25,7 @@
 ## Технологический стек
 **Клиент:** HTML, CSS, Vanilla JS, Webpack, API
 
-
+---
 
 ## Автор
 - [@Sengeer](https://vk.com/sergey.polenov/)
