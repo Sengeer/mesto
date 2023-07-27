@@ -1,6 +1,6 @@
 <h1 align="center"><a href="https://sengeer.github.io/mesto/" target="_blank">Место</a></h1>
 
-Одностраничный сайт. Разработан в рамках образовательной программы [Яндекс Практикум](https://practicum.yandex.ru/).
+Одностраничный сайт. Третья проектная работа, разработана в рамках образовательной программы [Яндекс Практикум](https://practicum.yandex.ru/).
 
 ![Превью проекта](/screenshots/preview.png?raw=true)
 
