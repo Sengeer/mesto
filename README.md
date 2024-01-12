@@ -24,7 +24,7 @@
 **Проект собран с помощью webpack.** Он позволяет минифицировать код и добавить вендорные префиксы.
 ## Технологический стек
 
-**Клиент:** HTML, CSS, native JS, Webpack, API
+**Клиент:** HTML, CSS, native JavaScript, Webpack, API
 
 
 
